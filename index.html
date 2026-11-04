@@ -157,6 +157,12 @@ form.contact input[type="radio"]{width:22px;height:22px;vertical-align:middle;ma
   .card{padding:18px 16px}
   .tree-node{min-width:140px}
 }
+.search-wrap{margin:6px 0 18px}
+.search-wrap label{font-size:20px}
+#peopleSearch{width:100%;font-size:21px;padding:14px 16px;min-height:58px;border:2px solid #7a6a53;border-radius:12px;margin-top:8px;background:#fffdf8;color:#26221c}
+#peopleSearch:focus{outline:3px solid #b98a2f;outline-offset:1px}
+.search-count{font-size:17px;color:#5c5344;margin:8px 2px 0}
+.search-none{font-size:19px;background:#f7ead2;border:1px solid #d8b96a;border-radius:10px;padding:12px 14px}
 </style>
 </head>
 <body>
@@ -226,6 +232,12 @@ form.contact input[type="radio"]{width:22px;height:22px;vertical-align:middle;ma
 <section id="page-people" class="page">
   <h2>People</h2>
   <p class="note">Everyone whose life the records have proven so far — the direct line first, and now aunts, uncles, and kin as their records are gathered. Click a card to read their story.</p>
+  <div class="search-wrap">
+    <label for="peopleSearch"><b>Find a person:</b> type a name here</label><br>
+    <input type="search" id="peopleSearch" placeholder="Start typing a name…" autocomplete="off">
+    <p id="peopleCount" class="search-count" aria-live="polite"></p>
+    <p id="peopleNoMatch" class="search-none" hidden>No one in the list matches that name yet. Try just the last name, or a shorter spelling.</p>
+  </div>
   <div id="peopleGrid" class="people-grid"></div>
   <p class="disclaimer">Privacy: Living descendants' information is kept private until they are deceased. Living family members appear by name only, marked "Still living," with no dates or details.</p>
 </section>
@@ -342,6 +354,26 @@ function buildPeopleGrid(){
   for (var i=0;i<cards.length;i++){
     cards[i].addEventListener('click', function(){ openPerson(this.getAttribute('data-person')); });
   }
+}
+
+function wirePeopleSearch(){
+  var input = document.getElementById('peopleSearch');
+  var count = document.getElementById('peopleCount');
+  var none = document.getElementById('peopleNoMatch');
+  if (!input) return;
+  function apply(){
+    var q = input.value.trim().toLowerCase(), shown = 0;
+    var cards = document.querySelectorAll('#peopleGrid .person-card');
+    for (var i=0;i<cards.length;i++){
+      var nm = cards[i].querySelector('.nm').textContent.toLowerCase();
+      var hit = (q === '' || nm.indexOf(q) !== -1);
+      cards[i].style.display = hit ? '' : 'none';
+      if (hit) shown++;
+    }
+    count.textContent = (q === '') ? '' : ('Showing ' + shown + ' of ' + cards.length + ' people.');
+    none.hidden = (shown !== 0);
+  }
+  input.addEventListener('input', apply);
 }
 
 function openPerson(id){
@@ -468,7 +500,7 @@ document.querySelectorAll('[data-back]').forEach(function(b){
   b.addEventListener('click', function(){ showPage('people'); });
 });
 
-buildPeopleGrid(); buildSources(); buildCems(); buildTree(); buildFamilies();
+buildPeopleGrid(); wirePeopleSearch(); buildSources(); buildCems(); buildTree(); buildFamilies();
 </script>
 </body>
 </html>
