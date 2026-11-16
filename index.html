@@ -162,18 +162,42 @@ form.contact input[type="radio"]{width:22px;height:22px;vertical-align:middle;ma
 .search-count{font-size:17px;color:#5c5344;margin:8px 2px 0}
 .search-none{font-size:19px;background:#f7ead2;border:1px solid #d8b96a;border-radius:10px;padding:12px 14px}
 
-    /* Expandable family tree */
-    .xctrl{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
-    .xctrl button{border:1px solid var(--line);background:var(--card);color:var(--green);border-radius:999px;padding:7px 16px;font:inherit;font-weight:700;cursor:pointer}
-    .xctrl button:hover{border-color:var(--green)}
-    .xrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:5px 0}
-    .xplus{color:var(--muted);font-weight:700}
-    .xkids{margin:2px 0 8px 24px;border-left:2px solid var(--line);padding-left:16px}
-    .xkids.xhidden{display:none}
-    .xtoggle{border:1px solid var(--line);background:var(--card);color:var(--green);border-radius:999px;min-width:30px;height:30px;cursor:pointer;font-weight:700;line-height:1}
-    .xtoggle:hover{border-color:var(--green)}
-    .tree-node.ph{cursor:default}
-    .tree-node.sp{border-style:dotted}
+    /* Graphical family tree (Workbench-style pan/zoom chart) */
+    .gt-ctrl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 10px}
+    .gt-ctrl>button{border:1px solid var(--line);background:var(--card);color:var(--green);border-radius:999px;padding:7px 16px;font:inherit;font-weight:700;cursor:pointer}
+    .gt-ctrl>button:hover{border-color:var(--green)}
+    .gt-find{position:relative;flex:1 1 210px;max-width:340px}
+    .gt-find input{width:100%;font:inherit;font-size:1rem;padding:9px 14px;border:2px solid var(--line);border-radius:999px;background:#fff;color:var(--ink)}
+    .gt-find input:focus{outline:3px solid var(--gold);outline-offset:1px}
+    .gt-results{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(60,45,15,.18);z-index:60;overflow:hidden}
+    .gt-results button{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--paper-deep);background:var(--card);padding:9px 14px;font:inherit;font-size:.95rem;cursor:pointer;color:var(--ink)}
+    .gt-results button:last-child{border-bottom:0}
+    .gt-results button:hover{background:#eef3e6}
+    .gt-results .ry{display:block;color:var(--muted);font-size:.82rem}
+    .gt-zoom{margin-left:auto;display:flex;gap:6px}
+    .gt-zoom button{border:1px solid var(--line);background:var(--card);color:var(--green);border-radius:999px;min-width:42px;padding:7px 12px;font:inherit;font-weight:700;cursor:pointer}
+    .gt-zoom button:hover{border-color:var(--green)}
+    .gt-hint{font-size:.88rem;color:var(--muted);margin:0 0 8px}
+    .gt-view{position:relative;height:78vh;min-height:430px;overflow:hidden;border:2px solid var(--line);border-radius:14px;background-color:var(--paper);background-image:radial-gradient(circle,#e3d5b3 1.1px,transparent 1.25px);background-size:26px 26px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+    .gt-view.grabbing{cursor:grabbing}
+    .gt-stage{position:absolute;left:0;top:0;transform-origin:0 0}
+    .gt-svg{position:absolute;left:0;top:0;overflow:visible}
+    .gt-svg path{fill:none;stroke:#b39b62;stroke-width:2}
+    .gt-svg path.sp{stroke:var(--gold);stroke-width:2.5}
+    .gt-card{position:absolute;width:192px;height:86px;background:var(--card);border:2px solid var(--green);border-radius:12px;padding:8px 10px 6px;text-align:center;cursor:pointer;box-shadow:0 1px 3px rgba(60,45,15,.10)}
+    .gt-card:hover{background:#eef3e6}
+    .gt-card .nm{display:block;font-size:15.5px;line-height:1.22;max-height:57px;overflow:hidden}
+    .gt-card .yr{display:block;color:var(--muted);font-family:Verdana,Geneva,sans-serif;font-size:12px;margin-top:2px;white-space:nowrap;overflow:hidden}
+    .gt-card.ph{border-color:var(--line);background:var(--paper)}
+    .gt-card.ph:hover{background:#f3ecd9}
+    .gt-card.living{border-style:dashed;border-color:var(--muted);background:var(--paper)}
+    .gt-card.living .nm{font-style:italic}
+    .gt-card.living .yr{font-style:italic}
+    .gt-card .pg{position:absolute;right:7px;bottom:4px;font-family:Verdana,Geneva,sans-serif;font-size:11.5px;font-weight:700;color:var(--green);text-decoration:none}
+    .gt-card .pg:hover{color:var(--gold);text-decoration:underline}
+    .gt-badge{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;border:2px solid var(--green);background:var(--card);color:var(--green);font-weight:700;font-size:15px;line-height:1;cursor:pointer;padding:0;z-index:3}
+    .gt-badge:hover{background:var(--green);color:#fff}
+    .gt-card.hl{box-shadow:0 0 0 3px var(--gold),0 0 26px rgba(201,150,46,.65);z-index:5}
 </style>
 </head>
 <body>
@@ -213,7 +237,8 @@ form.contact input[type="radio"]{width:22px;height:22px;vertical-align:middle;ma
   <h3>Latest additions</h3>
   <div class="card">
     <ul class="facts">
-        <li><strong>November 15, 2026:</strong> The big one — every completed deep dive folded in at once: <b>118 new person pages</b> (the Youngbird, Bird, Glass, Wofford, Davis, Crittenden, Scraper, Mouse, Ward, Rogers, Hobbs, Shrum and Lacie lines among them), <b>326 new sources</b> in the hub (numbers 176–501), and <b>18 more family cemeteries</b> — 41 in all. The <b>Family Tree is rebuilt</b>: now fully expandable — open any name to walk down through their children, generation by generation, and click a name to open their page. As always, only proven facts are published; the unproven stays in the private research notes.</li>
+        <li><strong>November 15, 2026:</strong> The big one — every completed deep dive folded in at once: <b>118 new person pages</b> (the Youngbird, Bird, Glass, Wofford, Davis, Crittenden, Scraper, Mouse, Ward, Rogers, Hobbs, Shrum and Lacie lines among them), <b>326 new sources</b> in the hub (numbers 176–501), and <b>18 more family cemeteries</b> — 41 in all. As always, only proven facts are published; the unproven stays in the private research notes.</li>
+        <li><strong>November 15, 2026:</strong> The <b>Family Tree grows up</b> — the tree is now a full interactive chart: drag to move around it, scroll or pinch to zoom, open a family's children with the + button, and use <b>Find a person</b> to jump straight to anyone on the tree. Every card links to that person's own page.</li>
         <li><strong>November 10, 2026:</strong> Six new pages from a single day’s research — <b>Adam Lacie</b> of the Cherokee Nation, whose Smithsonian lantern slide with Wolf Coon now carries the family-settled identification and the museum’s credit line; his first wife <b>E. M. Lacie</b> and their infant daughter; <b>Mayo Sidney Whitecrow Sr.</b> and <b>Lucille (Garrett) Whitecrow</b> of Miami; <b>Charles Walter Shrum</b> of Dry Fork and Osage, Arkansas; and <b>Bulah Eska Melton</b> of Greer County and Cushman. Nineteen new sources (157–175) and four new cemeteries — the Lacie Family Cemetery near Westville, Council House at Wyandotte, Shady Grove at Osage, and Pleasant Valley at Cushman.</li>
         <li><strong>November 4, 2026:</strong> Six more pages from the fifth generation — <b>Tilford Miller Melton</b> and <b>Elmira “Clementine” (Melton) Melton</b> of Izard County, Arkansas; <b>William Hawkins</b> of Frederick, Oklahoma, and <b>Rhoda (Biggerstaff) Hawkins</b>; and <b>William Pleasant Rigsby</b> and <b>Wadie (Straughan) Rigsby</b> of Marshall, Texas. Seventeen new sources (140–156) and two new cemeteries — Frederick in Oklahoma and Greenwood in Marshall, Texas.</li>
         <li><strong>November 4, 2026:</strong> <b>Dallas Texas Melton</b> and <b>Orveta (Hawkins) Melton</b>, and <b>Jonathan William Hawkins</b> and <b>Julia Lee (Rigsby) Hawkins</b> — the Arizona branch of the family — added. Eleven new sources (129–139).</li>
@@ -245,7 +270,7 @@ form.contact input[type="radio"]{width:22px;height:22px;vertical-align:middle;ma
 
 <section id="page-tree" class="page">
   <h2>The Family Tree</h2>
-  <p class="note">The whole proven tree on one expandable chart: use the + / − button beside a name (or Expand all) to walk down through that person's children, generation by generation. Click any name to open that person's page. Spouses are shown beside each person. Dashed boxes are living family — they are marked "Still living," with no dates or details. Below the tree, the Wider Family shows the children of each couple — aunts, uncles, and kin belong on the tree too.</p>
+  <p class="note">The whole proven tree on one chart — and you can move around in it. Drag to pan, scroll or pinch to zoom. Tap the + on a family to open up its children, generation by generation, or press Expand all to see everybody at once. Looking for someone? Type a name into Find a person and the chart will carry you straight to them and open their branch. Husbands and wives stand side by side, and every card has a link to that person's own page. Dashed boxes are living family — they are marked "Still living," with no dates or details. Below the chart, the Wider Family gathers the children of each couple — aunts, uncles, and kin belong on the tree too.</p>
   <div id="tree"></div>
   <h3>The Wider Family</h3>
   <p class="note">Everybody belongs on the family tree. Here are the children of each couple, gathered family by family — tap a highlighted name to open that person's page. More families are added as their records are completed.</p>
@@ -463,7 +488,7 @@ function buildCems(){
 
 function buildTree(){
     var XL = ARCHIVE.links || [], XT = ARCHIVE.tnodes || {};
-    var children = {}, spouses = {}, seen = {}, order = [], hasParent = {}, i, l;
+    var children = {}, spouses = {}, seen = {}, order = [], hasParent = {}, parentOf = {}, i, l;
     function reg(k){ if (!seen[k]){ seen[k] = true; order.push(k); } }
     for (i = 0; i < XL.length; i++){
       l = XL[i]; reg(l.a); reg(l.b);
@@ -480,6 +505,7 @@ function buildTree(){
       if (l.kind !== "spouse" && !anchored[l.b]){
         anchored[l.b] = true;
         (children[l.a] = children[l.a] || []).push(l.b);
+        parentOf[l.b] = l.a;
       }
     }
     function info(key){
@@ -488,58 +514,249 @@ function buildTree(){
       if (p) return { name: p.name, years: p.years || "", id: p.id, priv: false };
       return { name: key, years: "", id: null, priv: false };
     }
-    function card(key, extra){
-      var n = info(key);
-      var cls = "tree-node" + (extra ? " " + extra : "");
-      var yrs = n.priv ? "Still living" : n.years;
-      var span = yrs ? '<span class="y">' + yrs + "</span>" : "";
-      if (n.priv) return '<div class="' + cls + ' living">' + n.name + span + "</div>";
-      if (n.id) return '<button class="' + cls + '" data-person="' + n.id + '">' + n.name + span + "</button>";
-      return '<div class="' + cls + ' ph">' + n.name + span + "</div>";
-    }
-    var uid = 0;
-    function branch(key, path){
-      var raw = children[key] || [], kids = [], i2;
-      for (i2 = 0; i2 < raw.length; i2++){ if (!path[raw[i2]]) kids.push(raw[i2]); }
-      var html = '<div class="xitem"><div class="xrow">' + card(key);
-      var sps = spouses[key] || [];
-      for (i2 = 0; i2 < sps.length; i2++){ html += '<span class="xplus">+</span>' + card(sps[i2], "sp"); }
-      if (kids.length){
-        uid++;
-        html += '<button class="xtoggle" data-xk="xk' + uid + '" aria-label="Expand or collapse children">+</button></div>';
-        var np = {}; for (var k in path) np[k] = true; np[key] = true;
-        html += '<div class="xkids xhidden" id="xk' + uid + '">';
-        for (i2 = 0; i2 < kids.length; i2++) html += branch(kids[i2], np);
-        html += "</div>";
-      } else { html += "</div>"; }
-      return html + "</div>";
-    }
     var pref = ["johnm", "lorenzo", "maryw", "davidcarter", "sarahb"];
     var roots = [];
     for (i = 0; i < pref.length; i++){ if (seen[pref[i]] && !hasParent[pref[i]]) roots.push(pref[i]); }
     for (i = 0; i < order.length; i++){ if (!hasParent[order[i]] && roots.indexOf(order[i]) < 0) roots.push(order[i]); }
-    var html = '<div class="xctrl"><button id="xExpandAll" type="button">Expand all</button><button id="xCollapseAll" type="button">Collapse all</button></div>';
-    for (i = 0; i < roots.length; i++) html += branch(roots[i], {});
+
     var box = document.getElementById("tree");
-    box.innerHTML = html;
-    var nodes = box.querySelectorAll("[data-person]");
-    for (i = 0; i < nodes.length; i++){ nodes[i].addEventListener("click", function(){ openPerson(this.getAttribute("data-person")); }); }
-    var togs = box.querySelectorAll(".xtoggle");
-    for (i = 0; i < togs.length; i++){ togs[i].addEventListener("click", function(){
-      var t = document.getElementById(this.getAttribute("data-xk"));
-      if (!t) return;
-      var nowHidden = t.classList.toggle("xhidden");
-      this.textContent = nowHidden ? "+" : "\u2212";
-    }); }
-    function setAll(hide){
-      var ks = box.querySelectorAll(".xkids");
-      for (var j = 0; j < ks.length; j++){ if (hide) ks[j].classList.add("xhidden"); else ks[j].classList.remove("xhidden"); }
-      var ts = box.querySelectorAll(".xtoggle");
-      for (var j2 = 0; j2 < ts.length; j2++) ts[j2].textContent = hide ? "+" : "\u2212";
+    box.innerHTML =
+      '<div class="gt-ctrl">'
+      + '<div class="gt-find"><input id="gtSearch" type="text" placeholder="Find a person in the tree\u2026" autocomplete="off" aria-label="Find a person in the tree">'
+      + '<div id="gtResults" class="gt-results" hidden></div></div>'
+      + '<button id="gtExpandAll" type="button">Expand all</button>'
+      + '<button id="gtCollapseAll" type="button">Collapse all</button>'
+      + '<span class="gt-zoom"><button id="gtZoomOut" type="button" aria-label="Zoom out">\u2212</button>'
+      + '<button id="gtZoomIn" type="button" aria-label="Zoom in">+</button>'
+      + '<button id="gtReset" type="button">Reset view</button></span>'
+      + '</div>'
+      + '<p class="gt-hint">Drag to move around the tree \u00b7 scroll or pinch to zoom \u00b7 tap a card to open or close that family \u00b7 \u201cPage \u203a\u201d opens that person\u2019s page.</p>'
+      + '<div class="gt-view" id="gtView"><div class="gt-stage" id="gtStage"></div></div>';
+    var view = document.getElementById("gtView"), stage = document.getElementById("gtStage");
+
+    var CW = 192, CH = 86, SGAP = 30, HGAP = 26, VGAP = 56, ROOTGAP = 110, PAD = 34;
+    var expanded = {};
+    for (i = 0; i < roots.length; i++) expanded[roots[i]] = true;
+    var cam = { x: 30, y: 26, k: 0.85 };
+    var worldW = 0, worldH = 0, maxY = 0, pos = {};
+
+    function unitKeys(key){ return [key].concat(spouses[key] || []); }
+    function unitW(key){ var n = unitKeys(key).length; return n * CW + (n - 1) * SGAP; }
+    function extendPath(path, key){ var np = {}; for (var k in path) np[k] = true; np[key] = true; return np; }
+    function visKids(key, path){
+      var raw = children[key] || [], out = [];
+      if (!expanded[key]) return out;
+      for (var j = 0; j < raw.length; j++){ if (!path[raw[j]]) out.push(raw[j]); }
+      return out;
     }
-    var ex = document.getElementById("xExpandAll"), co = document.getElementById("xCollapseAll");
-    if (ex) ex.addEventListener("click", function(){ setAll(false); });
-    if (co) co.addEventListener("click", function(){ setAll(true); });
+    function measure(key, path){
+      var np = extendPath(path, key);
+      var kids = visKids(key, path), uw = unitW(key);
+      if (!kids.length) return uw;
+      var sum = 0;
+      for (var j = 0; j < kids.length; j++) sum += measure(kids[j], np);
+      sum += HGAP * (kids.length - 1);
+      return Math.max(uw, sum);
+    }
+    var nodesHtml = [], pathsHtml = [];
+    function cardHtml(key, unit, x, y, primary){
+      var n = info(key);
+      var cls = "gt-card" + (n.priv ? " living" : (n.id ? "" : " ph"));
+      var yrs = n.priv ? "Still living" : n.years;
+      var h = '<div class="' + cls + '" style="left:' + x + 'px;top:' + y + 'px" data-key="' + key + '" data-unit="' + unit + '"' + (primary ? ' data-primary="1"' : '') + '>'
+        + '<span class="nm">' + n.name + '</span>'
+        + (yrs ? '<span class="yr">' + yrs + '</span>' : '');
+      if (n.id) h += '<a class="pg" href="#" data-pagelink="' + n.id + '">Page \u203a</a>';
+      if (primary && (children[key] || []).length){
+        h += '<button type="button" class="gt-badge" data-badge="' + key + '" aria-label="Show or hide this family">' + (expanded[key] ? '\u2212' : '+') + '</button>';
+      }
+      return h + '</div>';
+    }
+    function place(key, path, x, y){
+      var np = extendPath(path, key);
+      var kids = visKids(key, path), uw = unitW(key), slotW = measure(key, path);
+      var kw = [], kidsW = 0, j;
+      for (j = 0; j < kids.length; j++){ kw.push(measure(kids[j], np)); kidsW += kw[j]; }
+      if (kids.length) kidsW += HGAP * (kids.length - 1);
+      var ux = x + (slotW - uw) / 2, uks = unitKeys(key);
+      for (var u = 0; u < uks.length; u++){
+        nodesHtml.push(cardHtml(uks[u], key, ux + u * (CW + SGAP), y, u === 0));
+        if (u > 0){
+          var lx = ux + u * (CW + SGAP);
+          pathsHtml.push('<path class="sp" d="M ' + (lx - SGAP) + ' ' + (y + CH / 2) + ' H ' + lx + '"/>');
+        }
+      }
+      pos[key] = { x: ux, y: y, cx: ux + uw / 2 };
+      if (y + CH > maxY) maxY = y + CH;
+      if (kids.length){
+        var kx = x + (slotW - kidsW) / 2, busY = y + CH + VGAP / 2, uxC = ux + uw / 2, centers = [], c;
+        for (j = 0; j < kids.length; j++){ c = place(kids[j], np, kx, y + CH + VGAP); centers.push(c); kx += kw[j] + HGAP; }
+        for (j = 0; j < kids.length; j++){
+          pathsHtml.push('<path d="M ' + uxC + ' ' + (y + CH) + ' V ' + busY + ' H ' + centers[j] + ' V ' + (y + CH + VGAP) + '"/>');
+        }
+      }
+      return ux + uw / 2;
+    }
+    function render(){
+      nodesHtml = []; pathsHtml = []; pos = {}; maxY = 0;
+      var y = PAD, maxW = 0, w;
+      for (var r = 0; r < roots.length; r++){
+        w = measure(roots[r], {});
+        if (w > maxW) maxW = w;
+        place(roots[r], {}, PAD, y);
+        y = maxY + ROOTGAP;
+      }
+      worldW = maxW + PAD * 2;
+      worldH = maxY + PAD;
+      stage.style.width = worldW + 'px';
+      stage.style.height = worldH + 'px';
+      stage.innerHTML = '<svg class="gt-svg" width="' + worldW + '" height="' + worldH + '" viewBox="0 0 ' + worldW + ' ' + worldH + '" aria-hidden="true">' + pathsHtml.join('') + '</svg>' + nodesHtml.join('');
+    }
+    function applyCam(){ stage.style.transform = 'translate(' + cam.x + 'px,' + cam.y + 'px) scale(' + cam.k + ')'; }
+    function centerOn(wx, wy, k){
+      if (k) cam.k = Math.max(0.15, Math.min(2.5, k));
+      var vw = view.clientWidth || 800, vh = view.clientHeight || 500;
+      cam.x = vw / 2 - wx * cam.k;
+      cam.y = vh / 2 - wy * cam.k;
+      applyCam();
+    }
+    function resetView(){
+      var first = roots.length ? pos[roots[0]] : null;
+      if (first) centerOn(first.cx, first.y + CH / 2, 0.9);
+      else { cam.x = 30; cam.y = 26; cam.k = 0.85; applyCam(); }
+    }
+    function zoomAt(mx, my, f){
+      var k2 = Math.max(0.15, Math.min(2.5, cam.k * f));
+      var wx = (mx - cam.x) / cam.k, wy = (my - cam.y) / cam.k;
+      cam.k = k2; cam.x = mx - wx * k2; cam.y = my - wy * k2;
+      applyCam();
+    }
+
+    function closest(el, sel){
+      while (el && el !== box){
+        if (el.nodeType === 1 && el.matches && el.matches(sel)) return el;
+        el = el.parentNode;
+      }
+      return null;
+    }
+    box.addEventListener('click', function(e){
+      if (!closest(e.target, '#gtView')){ suppressClick = false; return; }
+      var card = closest(e.target, '.gt-card');
+      if (!card){ suppressClick = false; return; }
+      if (suppressClick){ suppressClick = false; return; }
+      var pg = closest(e.target, '[data-pagelink]');
+      if (pg){ e.preventDefault(); openPerson(pg.getAttribute('data-pagelink')); return; }
+      var unit = card.getAttribute('data-unit');
+      if ((children[unit] || []).length){
+        expanded[unit] = !expanded[unit];
+        render(); applyCam();
+      }
+    });
+
+    var pointers = {}, pinchD = 0, dragMoved = false, suppressClick = false;
+    function pointerList(){ var out = []; for (var id in pointers) out.push(pointers[id]); return out; }
+    view.addEventListener('pointerdown', function(e){
+      try { view.setPointerCapture(e.pointerId); } catch (err) {}
+      pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var ps = pointerList();
+      if (ps.length === 2) pinchD = Math.hypot(ps[0].x - ps[1].x, ps[0].y - ps[1].y);
+      dragMoved = false;
+      view.classList.add('grabbing');
+    });
+    view.addEventListener('pointermove', function(e){
+      if (!pointers[e.pointerId]) return;
+      var prev = pointers[e.pointerId];
+      var dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+      pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var ps = pointerList();
+      if (ps.length === 2){
+        var nd = Math.hypot(ps[0].x - ps[1].x, ps[0].y - ps[1].y);
+        if (pinchD > 0 && nd > 0){
+          var rect = view.getBoundingClientRect();
+          zoomAt((ps[0].x + ps[1].x) / 2 - rect.left, (ps[0].y + ps[1].y) / 2 - rect.top, nd / pinchD);
+        }
+        pinchD = nd; dragMoved = true;
+      } else if (ps.length === 1){
+        if (dx || dy){
+          cam.x += dx; cam.y += dy; applyCam();
+          if (Math.abs(dx) + Math.abs(dy) > 3) dragMoved = true;
+        }
+      }
+    });
+    function endPointer(e){
+      delete pointers[e.pointerId];
+      if (!pointerList().length){
+        view.classList.remove('grabbing');
+        if (dragMoved) suppressClick = true;
+      }
+    }
+    view.addEventListener('pointerup', endPointer);
+    view.addEventListener('pointercancel', endPointer);
+    view.addEventListener('wheel', function(e){
+      e.preventDefault();
+      var rect = view.getBoundingClientRect();
+      zoomAt(e.clientX - rect.left, e.clientY - rect.top, Math.exp(-e.deltaY * 0.0016));
+    }, { passive: false });
+
+    document.getElementById('gtExpandAll').addEventListener('click', function(){
+      for (var k in children) expanded[k] = true;
+      render(); applyCam();
+    });
+    document.getElementById('gtCollapseAll').addEventListener('click', function(){
+      expanded = {};
+      render(); resetView();
+    });
+    document.getElementById('gtZoomIn').addEventListener('click', function(){ zoomAt((view.clientWidth || 800) / 2, (view.clientHeight || 500) / 2, 1.25); });
+    document.getElementById('gtZoomOut').addEventListener('click', function(){ zoomAt((view.clientWidth || 800) / 2, (view.clientHeight || 500) / 2, 0.8); });
+    document.getElementById('gtReset').addEventListener('click', resetView);
+
+    var searchIn = document.getElementById('gtSearch'), results = document.getElementById('gtResults');
+    function doSearch(){
+      var q = searchIn.value.trim().toLowerCase();
+      if (!q){ results.hidden = true; results.innerHTML = ''; return; }
+      var hits = [];
+      for (var j = 0; j < order.length && hits.length < 9; j++){
+        if (info(order[j]).name.toLowerCase().indexOf(q) !== -1) hits.push(order[j]);
+      }
+      if (!hits.length){
+        results.innerHTML = '<button type="button" disabled>No match in the tree</button>';
+        results.hidden = false;
+        return;
+      }
+      results.innerHTML = hits.map(function(k2){
+        var inf = info(k2);
+        var sub = inf.priv ? 'Still living' : (inf.years || '');
+        return '<button type="button" data-find="' + k2 + '">' + inf.name + (sub ? '<span class="ry">' + sub + '</span>' : '') + '</button>';
+      }).join('');
+      results.hidden = false;
+    }
+    searchIn.addEventListener('input', doSearch);
+    searchIn.addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){ e.preventDefault(); var b = results.querySelector('[data-find]'); if (b) b.click(); }
+    });
+    results.addEventListener('click', function(e){
+      var b = closest(e.target, '[data-find]');
+      if (b){ reveal(b.getAttribute('data-find')); results.hidden = true; }
+    });
+    document.addEventListener('click', function(e){
+      if (!closest(e.target, '.gt-find')) results.hidden = true;
+    });
+    function reveal(key){
+      var a = parentOf[key], guard = 0;
+      while (a && guard++ < 80){ expanded[a] = true; a = parentOf[a]; }
+      render();
+      var p = pos[key];
+      if (!p) return;
+      centerOn(p.cx, p.y + CH / 2, Math.max(cam.k, 0.95));
+      var el = stage.querySelector('[data-primary][data-key="' + key + '"]');
+      if (el){
+        el.classList.add('hl');
+        setTimeout(function(){ el.classList.remove('hl'); }, 2600);
+      }
+    }
+
+    render();
+    resetView();
   }
 
   function buildFamilies(){
